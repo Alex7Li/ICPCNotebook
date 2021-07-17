@@ -3,13 +3,19 @@
 # Subsections within a section should follow the format:
 #   [filename within code directory][tab character \t][subsection title]
 
+[Essentials]
+IO.cc	C++ input/output
+DebugHeader.txt	Debug Information
+UnorderedSetMap.cc	Unordered Set/Map
+OrderedSetMap.cc	Ordered Set/Map
+
 [Combinatorial optimization]
 #MaxFlow.cc	Dense max-flow
 Dinic.cc	Sparse max-flow
 MinCostMaxFlow.cc	Min-cost max-flow
 PushRelabel.cc	Push-relabel max-flow	
 MinCostMatching.cc	Min-cost matching
-MaxBipartiteMatching.cc	Max bipartite matchine
+MaxBipartiteMatching.cc	Max bipartite matching
 MinCut.cc	Global min-cut
 GraphCutInference.cc	Graph cut inference
 #MaxFlow.java	Max-flow (Java)
@@ -54,10 +60,8 @@ LongestIncreasingSubsequence.cc	Longest increasing subsequence
 Dates.cc	Dates
 LogLan.java	Regular expressions
 Primes.cc	Prime numbers
-IO.cc	C++ input/output
 KMP.cc	Knuth-Morris-Pratt
 LatLong.cc	Latitude/longitude
-EmacsSettings.txt	Emacs settings
 #TopologicalSort.cc	Topological sort (C++)
 #Dates.java	Dates (Java)
 #DecFormat.java	Decimal output formatting (Java)
