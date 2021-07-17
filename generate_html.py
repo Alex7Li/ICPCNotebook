@@ -1,5 +1,6 @@
 #!/usr/bin/python
 import subprocess
+import os
 code_dir = "code"
 title = "Ohio State ACM-ICPC Team Notebook"
 
@@ -51,8 +52,9 @@ def get_html_enscript(sections):
     enscript_options = ["enscript", "-E", "--color", "--language=html", "-o", "-", "-t", title]
     filenames = []
     for (_, subsections) in sections:
-        filenames += [code_dir + '/' + filename for (filename, _) in subsections]
+        filenames += [os.path.join(code_dir, filename) for (filename, _) in subsections]
     bstr = subprocess.check_output(enscript_options + filenames)
+
     return bstr.decode('utf-8')
 
 

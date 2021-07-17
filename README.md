@@ -1,13 +1,23 @@
 Ohio State ACM-ICPC Notebook
 ============================
 
-This is a repository for the OSU ACM-ICPC teams. Cloned from Stanford's notebook.
+This is a repository for the OSU ACM-ICPC teams.
 
-It currently hosts (a) the team notebook, and (b) complete lecture slides for [CS 97SI](http://stanford.edu/class/cs97si/).
+It hosts a notebook that can be printed out and used during contests. 
+Look at notebook.html or notebook.pdf.
 
 Generating team notebook
 ========================
 The included Python scripts can generate the notebook in PDF or HTML format. Both scripts read the contents of the notebook from `contents.txt`.
+
+You can run it like this (Linux):
+```Linux:
+sudo apt install latexmk
+python3 generate_pdf.py
+
+sudo apt install enscript
+python3 generate_html.py
+```
 
 PDF version
 -----------

@@ -1,11 +1,11 @@
 <!DOCTYPE html PUBLIC "-//IETF//DTD HTML 2.0//EN">
 <HTML>
 <HEAD>
-<TITLE>Stanford ACM-ICPC Team Notebook</TITLE>
+<TITLE>Ohio State ACM-ICPC Team Notebook</TITLE>
 </HEAD>
 <BODY BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#1F00FF" ALINK="#FF0000" VLINK="#9900DD">
 <A NAME="top">
-<CENTER><H1><U>Stanford ACM-ICPC Team Notebook</U></H1></CENTER>
+<CENTER><H1><U>Ohio State ACM-ICPC Team Notebook</U></H1></CENTER>
 <H1>Table of Contents</H1>
 <H2>Combinatorial optimization</H2>
 
@@ -86,9 +86,12 @@
 </FONT></I><I><FONT COLOR="#B22222">//     - To obtain actual flow values, look at edges with capacity &gt; 0
 </FONT></I><I><FONT COLOR="#B22222">//       (zero capacity edges are residual edges).
 </FONT></I>
-#<B><FONT COLOR="#5F9EA0">include&lt;cstdio&gt;</FONT></B>
-#<B><FONT COLOR="#5F9EA0">include&lt;vector&gt;</FONT></B>
-#<B><FONT COLOR="#5F9EA0">include&lt;queue&gt;</FONT></B>
+#<B><FONT COLOR="#5F9EA0">include&lt;cstdio&gt;
+</FONT></B>
+#<B><FONT COLOR="#5F9EA0">include&lt;vector&gt;
+</FONT></B>
+#<B><FONT COLOR="#5F9EA0">include&lt;queue&gt;
+</FONT></B>
 using namespace std;
 <B><FONT COLOR="#228B22">typedef</FONT></B> <B><FONT COLOR="#228B22">long</FONT></B> <B><FONT COLOR="#228B22">long</FONT></B> LL;
 
@@ -109,9 +112,9 @@ using namespace std;
 
   <B><FONT COLOR="#228B22">void</FONT></B> AddEdge(<B><FONT COLOR="#228B22">int</FONT></B> u, <B><FONT COLOR="#228B22">int</FONT></B> v, LL cap) {
     <B><FONT COLOR="#A020F0">if</FONT></B> (u != v) {
-      E.emplace_back(Edge(u, v, cap));
+      E.emplace_back(u, v, cap);
       g[u].emplace_back(E.size() - 1);
-      E.emplace_back(Edge(v, u, 0));
+      E.emplace_back(v, u, 0);
       g[v].emplace_back(E.size() - 1);
     }
   }
@@ -835,7 +838,8 @@ using namespace std;
       b[i] *= -1;
     }
     c *= -1;
-#<B><FONT COLOR="#5F9EA0">endif</FONT></B>
+#<B><FONT COLOR="#5F9EA0">endif
+</FONT></B>
 
     <B><FONT COLOR="#A020F0">for</FONT></B> (<B><FONT COLOR="#228B22">int</FONT></B> i = 0; i &lt; M; i++) {
       <B><FONT COLOR="#A020F0">if</FONT></B> (b[i] &gt;= 0) {
@@ -854,7 +858,8 @@ using namespace std;
     score += c;
 #<B><FONT COLOR="#5F9EA0">ifdef</FONT></B> <FONT COLOR="#B8860B">MAXIMIZATION</FONT>
     score *= -1;
-#<B><FONT COLOR="#5F9EA0">endif</FONT></B>
+#<B><FONT COLOR="#5F9EA0">endif
+</FONT></B>
 
     <B><FONT COLOR="#A020F0">return</FONT></B> score;
   }
@@ -940,7 +945,8 @@ T area2(PT a, PT b, PT c) { <B><FONT COLOR="#A020F0">return</FONT></B> cross(a,b
 <B><FONT COLOR="#228B22">bool</FONT></B> <B><FONT COLOR="#0000FF">between</FONT></B>(<B><FONT COLOR="#228B22">const</FONT></B> PT &amp;a, <B><FONT COLOR="#228B22">const</FONT></B> PT &amp;b, <B><FONT COLOR="#228B22">const</FONT></B> PT &amp;c) {
   <B><FONT COLOR="#A020F0">return</FONT></B> (fabs(area2(a,b,c)) &lt; EPS &amp;&amp; (a.x-b.x)*(c.x-b.x) &lt;= 0 &amp;&amp; (a.y-b.y)*(c.y-b.y) &lt;= 0);
 }
-#<B><FONT COLOR="#5F9EA0">endif</FONT></B>
+#<B><FONT COLOR="#5F9EA0">endif
+</FONT></B>
 
 <B><FONT COLOR="#228B22">void</FONT></B> <B><FONT COLOR="#0000FF">ConvexHull</FONT></B>(vector&lt;PT&gt; &amp;pts) {
   sort(pts.begin(), pts.end());
@@ -969,7 +975,8 @@ T area2(PT a, PT b, PT c) { <B><FONT COLOR="#A020F0">return</FONT></B> cross(a,b
     dn.pop_back();
   }
   pts = dn;
-#<B><FONT COLOR="#5F9EA0">endif</FONT></B>
+#<B><FONT COLOR="#5F9EA0">endif
+</FONT></B>
 }
 
 <I><FONT COLOR="#B22222">// BEGIN CUT
@@ -1039,7 +1046,7 @@ using namespace std;
 <B><FONT COLOR="#228B22">double</FONT></B> <B><FONT COLOR="#0000FF">dist2</FONT></B>(PT p, PT q)   { <B><FONT COLOR="#A020F0">return</FONT></B> dot(p-q,p-q); }
 <B><FONT COLOR="#228B22">double</FONT></B> <B><FONT COLOR="#0000FF">cross</FONT></B>(PT p, PT q)   { <B><FONT COLOR="#A020F0">return</FONT></B> p.x*q.y-p.y*q.x; }
 ostream &amp;<B><FONT COLOR="#A020F0">operator</FONT></B>&lt;&lt;(ostream &amp;os, <B><FONT COLOR="#228B22">const</FONT></B> PT &amp;p) {
-  os &lt;&lt; <B><FONT COLOR="#BC8F8F">&quot;(&quot;</FONT></B> &lt;&lt; p.x &lt;&lt; <B><FONT COLOR="#BC8F8F">&quot;,&quot;</FONT></B> &lt;&lt; p.y &lt;&lt; <B><FONT COLOR="#BC8F8F">&quot;)&quot;</FONT></B>; 
+  <B><FONT COLOR="#A020F0">return</FONT></B> os &lt;&lt; <B><FONT COLOR="#BC8F8F">&quot;(&quot;</FONT></B> &lt;&lt; p.x &lt;&lt; <B><FONT COLOR="#BC8F8F">&quot;,&quot;</FONT></B> &lt;&lt; p.y &lt;&lt; <B><FONT COLOR="#BC8F8F">&quot;)&quot;</FONT></B>; 
 }
 
 <I><FONT COLOR="#B22222">// rotate a point CCW or CW around the origin
@@ -1542,7 +1549,8 @@ PT <B><FONT COLOR="#0000FF">ComputeCentroid</FONT></B>(<B><FONT COLOR="#228B22">
 </FONT></I><I><FONT COLOR="#B22222">// OUTPUT:   triples = a vector containing m triples of indices
 </FONT></I><I><FONT COLOR="#B22222">//                     corresponding to triangle vertices
 </FONT></I>
-#<B><FONT COLOR="#5F9EA0">include&lt;vector&gt;</FONT></B>
+#<B><FONT COLOR="#5F9EA0">include&lt;vector&gt;
+</FONT></B>
 using namespace std;
 
 <B><FONT COLOR="#228B22">typedef</FONT></B> <B><FONT COLOR="#228B22">double</FONT></B> T;
@@ -2300,7 +2308,8 @@ Expected:
 <H1>code/SCC.cc 19/35</H1>
 [<A HREF="#top">top</A>][<A HREF="#file18">prev</A>][<A HREF="#file20">next</A>]
 <PRE>
-#<B><FONT COLOR="#5F9EA0">include&lt;memory.h&gt;</FONT></B>
+#<B><FONT COLOR="#5F9EA0">include&lt;memory.h&gt;
+</FONT></B>
 <B><FONT COLOR="#228B22">struct</FONT></B> edge{<B><FONT COLOR="#228B22">int</FONT></B> e, nxt;};
 <B><FONT COLOR="#228B22">int</FONT></B> V, E;
 edge e[MAXE], er[MAXE];
@@ -2477,7 +2486,8 @@ using namespace std;
   }
 }
 
-#<B><FONT COLOR="#5F9EA0">else</FONT></B>
+#<B><FONT COLOR="#5F9EA0">else
+</FONT></B>
 <I><FONT COLOR="#B22222">// END CUT
 </FONT></I><B><FONT COLOR="#228B22">int</FONT></B> <B><FONT COLOR="#0000FF">main</FONT></B>() {
 
@@ -2498,7 +2508,8 @@ using namespace std;
   cout &lt;&lt; suffix.LongestCommonPrefix(0, 2) &lt;&lt; endl;
 }
 <I><FONT COLOR="#B22222">// BEGIN CUT
-</FONT></I>#<B><FONT COLOR="#5F9EA0">endif</FONT></B>
+</FONT></I>#<B><FONT COLOR="#5F9EA0">endif
+</FONT></B>
 <I><FONT COLOR="#B22222">// END CUT
 </FONT></I></PRE>
 <HR>
@@ -2555,18 +2566,21 @@ using namespace std;
 #<B><FONT COLOR="#5F9EA0">include</FONT></B> <B><FONT COLOR="#BC8F8F">&lt;iostream&gt;</FONT></B>
 #<B><FONT COLOR="#5F9EA0">include</FONT></B> <B><FONT COLOR="#BC8F8F">&lt;vector&gt;</FONT></B>
 using namespace std;
-<B><FONT COLOR="#228B22">int</FONT></B> <B><FONT COLOR="#0000FF">find</FONT></B>(vector&lt;<B><FONT COLOR="#228B22">int</FONT></B>&gt; &amp;C, <B><FONT COLOR="#228B22">int</FONT></B> x) { <B><FONT COLOR="#A020F0">return</FONT></B> (C[x] == x) ? x : C[x] = find(C, C[x]); }
-<B><FONT COLOR="#228B22">void</FONT></B> <B><FONT COLOR="#0000FF">merge</FONT></B>(vector&lt;<B><FONT COLOR="#228B22">int</FONT></B>&gt; &amp;C, <B><FONT COLOR="#228B22">int</FONT></B> x, <B><FONT COLOR="#228B22">int</FONT></B> y) { C[find(C, x)] = find(C, y); }
+<B><FONT COLOR="#228B22">struct</FONT></B> UnionFind {
+    vector&lt;<B><FONT COLOR="#228B22">int</FONT></B>&gt; C;
+    UnionFind(<B><FONT COLOR="#228B22">int</FONT></B> n) : C(n) { <B><FONT COLOR="#A020F0">for</FONT></B> (<B><FONT COLOR="#228B22">int</FONT></B> i = 0; i &lt; n; i++) C[i] = i; }
+    <B><FONT COLOR="#228B22">int</FONT></B> find(<B><FONT COLOR="#228B22">int</FONT></B> x) { <B><FONT COLOR="#A020F0">return</FONT></B> (C[x] == x) ? x : C[x] = find(C[x]); }
+    <B><FONT COLOR="#228B22">void</FONT></B> merge(<B><FONT COLOR="#228B22">int</FONT></B> x, <B><FONT COLOR="#228B22">int</FONT></B> y) { C[find(x)] = find(y); }
+};
 <B><FONT COLOR="#228B22">int</FONT></B> <B><FONT COLOR="#0000FF">main</FONT></B>()
 {
-	<B><FONT COLOR="#228B22">int</FONT></B> n = 5;
-	vector&lt;<B><FONT COLOR="#228B22">int</FONT></B>&gt; C(n);
-	<B><FONT COLOR="#A020F0">for</FONT></B> (<B><FONT COLOR="#228B22">int</FONT></B> i = 0; i &lt; n; i++) C[i] = i;
-	merge(C, 0, 2);
-	merge(C, 1, 0);
-	merge(C, 3, 4);
-	<B><FONT COLOR="#A020F0">for</FONT></B> (<B><FONT COLOR="#228B22">int</FONT></B> i = 0; i &lt; n; i++) cout &lt;&lt; i &lt;&lt; <B><FONT COLOR="#BC8F8F">&quot; &quot;</FONT></B> &lt;&lt; find(C, i) &lt;&lt; endl;
-	<B><FONT COLOR="#A020F0">return</FONT></B> 0;
+    <B><FONT COLOR="#228B22">int</FONT></B> n = 5;
+    UnionFind uf(n);
+    uf.merge(0, 2);
+    uf.merge(1, 0);
+    uf.merge(3, 4);
+    <B><FONT COLOR="#A020F0">for</FONT></B> (<B><FONT COLOR="#228B22">int</FONT></B> i = 0; i &lt; n; i++) cout &lt;&lt; i &lt;&lt; <B><FONT COLOR="#BC8F8F">&quot; &quot;</FONT></B> &lt;&lt; uf.find(i) &lt;&lt; endl;
+    <B><FONT COLOR="#A020F0">return</FONT></B> 0;
 }
 </PRE>
 <HR>
@@ -3105,7 +3119,7 @@ vector&lt;<B><FONT COLOR="#228B22">int</FONT></B>&gt; children[max_nodes];	<I><F
 <H1>code/LongestIncreasingSubsequence.cc 28/35</H1>
 [<A HREF="#top">top</A>][<A HREF="#file27">prev</A>][<A HREF="#file29">next</A>]
 <PRE>
-<I><FONT COLOR="#B22222">// Given a list of numbers of length n, this routine extracts a 
+<I><FONT COLOR="#B22222">// Given a list of numbers of length n, this routine extracts a
 </FONT></I><I><FONT COLOR="#B22222">// longest increasing subsequence.
 </FONT></I><I><FONT COLOR="#B22222">//
 </FONT></I><I><FONT COLOR="#B22222">// Running time: O(n log n)
@@ -3128,25 +3142,27 @@ using namespace std;
 VI <B><FONT COLOR="#0000FF">LongestIncreasingSubsequence</FONT></B>(VI v) {
   VPII best;
   VI dad(v.size(), -1);
-  
+
   <B><FONT COLOR="#A020F0">for</FONT></B> (<B><FONT COLOR="#228B22">int</FONT></B> i = 0; i &lt; v.size(); i++) {
 #<B><FONT COLOR="#5F9EA0">ifdef</FONT></B> <FONT COLOR="#B8860B">STRICTLY_INCREASNG</FONT>
     PII item = make_pair(v[i], 0);
     <B><FONT COLOR="#5F9EA0">VPII</FONT></B>::iterator it = lower_bound(best.begin(), best.end(), item);
     item.second = i;
-#<B><FONT COLOR="#5F9EA0">else</FONT></B>
+#<B><FONT COLOR="#5F9EA0">else
+</FONT></B>
     PII item = make_pair(v[i], i);
     <B><FONT COLOR="#5F9EA0">VPII</FONT></B>::iterator it = upper_bound(best.begin(), best.end(), item);
-#<B><FONT COLOR="#5F9EA0">endif</FONT></B>
+#<B><FONT COLOR="#5F9EA0">endif
+</FONT></B>
     <B><FONT COLOR="#A020F0">if</FONT></B> (it == best.end()) {
       dad[i] = (best.size() == 0 ? -1 : best.back().second);
       best.push_back(item);
     } <B><FONT COLOR="#A020F0">else</FONT></B> {
-      dad[i] = dad[it-&gt;second];
+      dad[i] = it == best.begin() ? -1 : prev(it)-&gt;second;
       *it = item;
     }
   }
-  
+
   VI ret;
   <B><FONT COLOR="#A020F0">for</FONT></B> (<B><FONT COLOR="#228B22">int</FONT></B> i = best.back().second; i &gt;= 0; i = dad[i])
     ret.push_back(v[i]);
