@@ -1,10 +1,9 @@
-Stanford ACM-ICPC
-=================
+Ohio State ACM-ICPC Notebook
+============================
 
-This is a repository for the Stanford ACM-ICPC teams.
+This is a repository for the OSU ACM-ICPC teams. Cloned from Stanford's notebook.
+
 It currently hosts (a) the team notebook, and (b) complete lecture slides for [CS 97SI](http://stanford.edu/class/cs97si/).
-
-The team notebook is compiled from codes written by previous Stanford team members and coaches.
 
 Generating team notebook
 ========================
@@ -26,6 +25,4 @@ Syntax highlighting is handled solely by enscript, and in order to change the co
 
 Links
 =====
-* [Stanford Local Programming Contest](http://cs.stanford.edu/group/acm/SLPC/)
-* [CS 97SI: Introduction to Programming Contests](http://stanford.edu/class/cs97si/)
-* [Stanford ACM-ICPC e-mail list](https://mailman.stanford.edu/mailman/listinfo/stanford-acm-icpc)
+* [CPC OSU Site](https://cpcosu.github.io/)
