@@ -21,27 +21,25 @@ using namespace std;
 typedef double T;
 typedef vector<T> VT;
 typedef vector<VT> VVT;
-
 typedef vector<int> VI;
 typedef vector<VI> VVI;
+bool BellmanFord(const VVT &w, VT &dist, VI &prev, int start) {
+    int n = w.size();
+    prev = VI(n, -1);
+    dist = VT(n, 1000000000);
+    dist[start] = 0;
 
-bool BellmanFord (const VVT &w, VT &dist, VI &prev, int start){
-  int n = w.size();
-  prev = VI(n, -1);
-  dist = VT(n, 1000000000);
-  dist[start] = 0;
-  
-  for (int k = 0; k < n; k++){
-    for (int i = 0; i < n; i++){
-      for (int j = 0; j < n; j++){
-        if (dist[j] > dist[i] + w[i][j]){
-          if (k == n-1) return false;
-          dist[j] = dist[i] + w[i][j];
-          prev[j] = i;
-        }	  
-      }
+    for (int k = 0; k < n; k++) {
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if (dist[j] > dist[i] + w[i][j]) {
+                    if (k == n - 1) return false;
+                    dist[j] = dist[i] + w[i][j];
+                    prev[j] = i;
+                }
+            }
+        }
     }
-  }
-  
-  return true;
+
+    return true;
 }

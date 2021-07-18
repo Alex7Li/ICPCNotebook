@@ -9,7 +9,6 @@ using namespace std;
 struct Coordinate {
     int x;
     int y;
-
     // Overloaded for ordered map. If !(c1<c2), !(c2<c1), then
     // c1 will be considered equal to c2.
     bool operator<(const Coordinate &o) const {
@@ -41,7 +40,7 @@ int main() {
     ordered_map<Coordinate, int> gnu_map; // Gnu map declaration
     ordered_set<Coordinate> gnu_set;// Gnu set declaration
     for (int i = 0; i < 10; i++) {
-        gnu_set.insert({0, i*10});
+        gnu_set.insert({0, i * 10});
     }
     cout << *gnu_set.find({0, 30}) << endl; // {0, 30}
     cout << *gnu_set.lower_bound({0, 53}) << endl; // {0, 60}

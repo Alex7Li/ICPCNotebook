@@ -4,8 +4,9 @@
 #   [filename within code directory][tab character \t][subsection title]
 
 [Essentials]
+cppheader.cc	C++ header
+DebugHeader.txt	C++ flags
 IO.cc	C++ input/output
-DebugHeader.txt	Debug Information
 UnorderedSetMap.cc	Unordered Set/Map
 OrderedSetMap.cc	Ordered Set/Map
 
@@ -24,7 +25,7 @@ GraphCutInference.cc	Graph cut inference
 [Geometry]
 ConvexHull.cc	Convex hull
 Geometry.cc	Miscellaneous geometry
-JavaGeometry.java	Java geometry
+#   JavaGeometry.java	Java geometry
 Geom3D.java	3D geometry
 Delaunay.cc	Slow Delaunay triangulation
 #Delaunay.java	Slow Delaunay triangulation (Java)
@@ -35,11 +36,10 @@ GaussJordan.cc	Systems of linear equations, matrix inverse, determinant
 ReducedRowEchelonForm.cc	Reduced row echelon form, matrix rank
 FFT_new.cc	Fast Fourier transform
 Simplex.cc	Simplex algorithm
-#FFT.cc	Fast Fourier transform (C++)
 
 [Graph algorithms]
-#BellmanFord.cc	Bellman-Ford shortest paths with negative edge weights (C++)
-#DijkstraFloyd.cc	Dijkstra and Floyd's algorithm (C++)
+BellmanFord.cc	Bellman-Ford shortest paths with negative edge weights (C++)
+DijkstraFloyd.cc	Dijkstra and Floyd's algorithm (C++)
 FastDijkstra.cc	Fast Dijkstra's algorithm
 SCC.cc	Strongly connected components
 EulerianPath.cc	Eulerian path
@@ -57,16 +57,15 @@ LCA.cc	Lowest common ancestor
 
 [Miscellaneous]
 LongestIncreasingSubsequence.cc	Longest increasing subsequence
-Dates.cc	Dates
-LogLan.java	Regular expressions
+#Dates.cc	Dates
+#LogLan.java	Regular expressions
 Primes.cc	Prime numbers
 KMP.cc	Knuth-Morris-Pratt
 LatLong.cc	Latitude/longitude
-#TopologicalSort.cc	Topological sort (C++)
+TopologicalSort.cc	Topological sort (C++)
 #Dates.java	Dates (Java)
 #DecFormat.java	Decimal output formatting (Java)
 #RandomSTL.cc	Random STL stuff
-#CSP.cc	Constraint satisfaction problems
+CSP.cc	Constraint satisfaction problems
 #FastExpo.cc	Fast exponentiation
 #LCS.cc	Longest common subsequence
-#MillerRabin.c	Miller-Rabin Primality Test (C)

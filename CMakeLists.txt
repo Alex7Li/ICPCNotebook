@@ -7,3 +7,5 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Wno-sign-compare -D _GLIB
 add_executable(Unordered code/UnorderedSetMap.cc)
 add_executable(ordered code/OrderedSetMap.cc)
 add_executable(IO code/IO.cc)
+add_executable(primes code/Primes.cc)
+add_executable(UnionFind code/UnionFind.cc)

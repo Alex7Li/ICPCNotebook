@@ -25,7 +25,7 @@ void hld(int u, int p = 0) {
     hld(v, u);
 }
 
-// perform a query the path betwwen a and b,
+// perform a query the path between a and b,
 // where query_path is a function on ranges of hld indices
 void hld_query(int a, int b) {
   int a_value = 0, b_value = 0;

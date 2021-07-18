@@ -5,6 +5,7 @@
 // but be careful with the hash function, the number of buckets is a power of 2.
 #include <bits/stdc++.h>
 using namespace std;
+
 struct Coordinate {
     int x;
     int y;
@@ -12,22 +13,25 @@ struct Coordinate {
         return x == other.x && y == other.y;
     }
 };
+
 ostream &operator<<(ostream &stream, const Coordinate &l) {
     return stream << "{" << l.x << " " << l.y << "}";
 }
 #include <ext/pb_ds/assoc_container.hpp>
+
 struct chash {
     static auto const c = uint64_t(7e18) + 13; // Big prime
     uint64_t operator()(const Coordinate &l) const {
         return __builtin_bswap64((l.x + l.y) * c);
     }
 };
+
 template<class k, class v>
 using hash_map = __gnu_pbds::gp_hash_table<k, v, chash>;
 template<class k>
 using hash_set = __gnu_pbds::gp_hash_table<k, __gnu_pbds::null_type, chash>;
 template<typename k, typename v>
-bool contains(hash_map<k, v> map, k val){
+bool contains(hash_map<k, v> map, k val) {
     return map.find(val) != map.end();
 }
 
@@ -41,7 +45,7 @@ int main() {
     assert(!contains(my_map, {3, 4}));
     cout << my_map[{3, 4}] << endl; // Prints 0
     assert(my_map.size() == 2); // We just set {3, 4} to 0 by accessing it.
-    for(auto pair : my_map){
+    for (auto pair : my_map) {
         cout << pair.first << "=" << pair.second << " "; // {3 4}=0 {1 2}=17
     }
 
