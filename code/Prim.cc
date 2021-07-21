@@ -72,14 +72,13 @@ int main() {
         for (int j = 0; j < 5; j++)
             w[i][j] = ww[i][j];
 
-    // expected: 305
+
+    VPII edges;
+    cout << Prim(w, edges) << endl; // 305
+    for (int i = 0; i < edges.size(); i++)
+        cout << edges[i].first << " " << edges[i].second << endl;
     //           2 1
     //           3 2
     //           0 3
     //           2 4
-
-    VPII edges;
-    cout << Prim(w, edges) << endl;
-    for (int i = 0; i < edges.size(); i++)
-        cout << edges[i].first << " " << edges[i].second << endl;
 }

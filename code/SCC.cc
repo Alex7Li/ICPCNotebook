@@ -1,37 +1,27 @@
-#include<memory.h>
-struct edge{int e, nxt;};
-int V, E;
-edge e[MAXE], er[MAXE];
-int sp[MAXV], spr[MAXV];
-int group_cnt, group_num[MAXV];
-bool v[MAXV];
-int stk[MAXV];
-void fill_forward(int x)
-{
-  int i;
-  v[x]=true;
-  for(i=sp[x];i;i=e[i].nxt) if(!v[e[i].e]) fill_forward(e[i].e);
-  stk[++stk[0]]=x;
-}
-void fill_backward(int x)
-{
-  int i;
-  v[x]=false;
-  group_num[x]=group_cnt;
-  for(i=spr[x];i;i=er[i].nxt) if(v[er[i].e]) fill_backward(er[i].e);
-}
-void add_edge(int v1, int v2) //add edge v1->v2
-{
-  e [++E].e=v2; e [E].nxt=sp [v1]; sp [v1]=E;
-  er[  E].e=v1; er[E].nxt=spr[v2]; spr[v2]=E;
-}
-void SCC()
-{
-  int i;
-  stk[0]=0;
-  memset(v, false, sizeof(v));
-  for(i=1;i<=V;i++) if(!v[i]) fill_forward(i);
-  group_cnt=0;
-  for(i=stk[0];i>=1;i--) if(v[stk[i]]){group_cnt++; fill_backward(stk[i]);}
-}
+vi val, comp, z, cont;
+int Time, ncomps;
+// A function that will be called with the indicies of all elements
+// in each component as the parameter once per component after running scc.
+void f(vi node_inds) {};
+int dfs(int j, vector<vi>& g) {
+    int low = val[j] = ++Time, x; z.push_back(j);
+    for (auto e : g[j]) if (comp[e] < 0)
+            low = min(low, val[e] ?: dfs(e,g));
 
+    if (low == val[j]) {
+        do {
+            x = z.back(); z.pop_back();
+            comp[x] = ncomps;
+            cont.push_back(x);
+        } while (x != j);
+        f(cont); cont.clear();
+        ncomps++;
+    }
+    return val[j] = low;
+}
+void scc(vector<vi>& g) {
+    int n = g.size();
+    val.assign(n, 0); comp.assign(n, -1);
+    Time = ncomps = 0;
+    rep(i,0,n) if (comp[i] < 0) dfs(i, g);
+}

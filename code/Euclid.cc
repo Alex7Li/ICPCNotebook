@@ -37,23 +37,13 @@ int powermod(int a, int b, int m) {
     }
     return ret;
 }
-// returns g = gcd(a, b); finds x, y such that d = ax + by
-int extended_euclid(int a, int b, int &x, int &y) {
-    int xx = y = 0;
-    int yy = x = 1;
-    while (b) {
-        int q = a / b;
-        int t = b;
-        b = a % b;
-        a = t;
-        t = xx;
-        xx = x - q * xx;
-        x = t;
-        t = yy;
-        yy = y - q * yy;
-        y = t;
-    }
-    return a;
+// Finds two integers $x$ and $y$, such that $ax+by=\gcd(a,b)$. If
+// If $a$ and $b$ are coprime, then $x$ is the inverse of $a \pmod{b}$.
+// Returns gcd(a, b)
+ll extended_euclid(ll a, ll b, ll &x, ll &y) {
+    if (!b) return x = 1, y = 0, a;
+    ll d = euclid(b, a % b, y, x);
+    return y -= a/b * x, d;
 }
 // finds all solutions to ax = b (mod n)
 VI modular_linear_equation_solver(int a, int b, int n) {
@@ -73,6 +63,15 @@ int mod_inverse(int a, int n) {
     int g = extended_euclid(a, n, x, y);
     if (g > 1) return -1;
     return mod(x, n);
+}
+// compute mod inverse of all numbers up to n
+vector<ll> precompute_inv_mod(int n, ll mod) {
+    vector<ll> inv(n + 1);
+    inv[1] = 1;
+    for (int i = 2; i <= n; ++i) {
+        inv[i] = mod - (mod / i) * inv[mod % i] % mod;
+    }
+    return inv;
 }
 // Chinese remainder theorem (special case): find z such that
 // z % m1 = r1, z % m2 = r2.  Here, z is unique modulo M = lcm(m1, m2).
