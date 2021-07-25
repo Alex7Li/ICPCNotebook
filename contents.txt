@@ -65,6 +65,7 @@ Manacher.cpp	Palindromes
 
 [Miscellaneous]
 Primes.cc	Prime numbers
+BinarySearch.cpp	Binary Search
 LatLong.cc	Latitude/longitude
 #RandomSTL.cc	Random STL stuff
 CSP.cc	Constraint satisfaction problems
