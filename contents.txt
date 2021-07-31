@@ -40,6 +40,7 @@ Delaunay.cc	Slow Delaunay triangulation
 
 [Numerical algorithms]
 Euclid.cc	Number theory (modular, Chinese remainder, linear Diophantine)
+Modular.cpp	Modular Arithmetic
 GaussJordan.cc	Systems of linear equations, matrix inverse, determinant
 ReducedRowEchelonForm.cc	Reduced row echelon form, matrix rank
 FFT_new.cc	Fast Fourier transform
@@ -58,6 +59,7 @@ EulerianPath.cc	Eulerian path
 Prim.cc	Minimum spanning trees
 
 [Strings]
+AhoCorasick.cpp	AhoCorasick
 LongestIncreasingSubsequence.cc	Longest increasing subsequence
 LCS.cc	Longest common subsequence
 KMP.cc	Knuth-Morris-Pratt

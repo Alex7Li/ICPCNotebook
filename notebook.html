@@ -3664,18 +3664,19 @@ using namespace std;
 <PRE>
 <I><FONT COLOR="#B22222">// This code is guaranteed to work in the min number of ops
 </FONT></I><I><FONT COLOR="#B22222">// for any MAX that fits in an ll.
-</FONT></I>ll MAX = 1LL &lt;&lt; 63;
-<I><FONT COLOR="#B22222">// Binary search integers in the range [0, MAX)
+</FONT></I>ll MAX = 1LL &lt;&lt; 62;
+<I><FONT COLOR="#B22222">// Binary search integers in the range [0, MAX] (or higher)
 </FONT></I><I><FONT COLOR="#B22222">// for the last element satisfying condition.
-</FONT></I><B><FONT COLOR="#0000FF">for</FONT></B> (<B><FONT COLOR="#228B22">int</FONT></B> j = 1LL &lt;&lt; (<B><FONT COLOR="#228B22">int</FONT></B>) (log2(MAX)); j != 0; j &gt;&gt;= 1) {
+</FONT></I>ll lo = 0
+<B><FONT COLOR="#0000FF">for</FONT></B> (ll j = 1LL &lt;&lt; (ll) (log2(MAX)); j != 0; j &gt;&gt;= 1) {
     <B><FONT COLOR="#A020F0">if</FONT></B> (condition(lo + j)) {
         lo += j;
     }
 }
-<I><FONT COLOR="#B22222">// Binary search integers in the range (1, MAX]
+<I><FONT COLOR="#B22222">// Binary search integers in the range (1, MAX] (or higher)
 </FONT></I><I><FONT COLOR="#B22222">// for the first element satisfying condition.
-</FONT></I>ll hi = 1LL &lt;&lt; (<B><FONT COLOR="#228B22">int</FONT></B>) (log2(MAX) + 1);
-<B><FONT COLOR="#0000FF">for</FONT></B> (<B><FONT COLOR="#228B22">int</FONT></B> j = 1LL &lt;&lt; (<B><FONT COLOR="#228B22">int</FONT></B>) (log2(MAX)); j != 0; j &gt;&gt;= 1) {
+</FONT></I>ll hi = 1LL &lt;&lt; (ll) (log2(MAX) + 1);
+<B><FONT COLOR="#0000FF">for</FONT></B> (ll j = 1LL &lt;&lt; (ll) (log2(MAX)); j != 0; j &gt;&gt;= 1) {
     <B><FONT COLOR="#A020F0">if</FONT></B> (condition(hi - j)) {
         hi -= j;
     }
