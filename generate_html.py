@@ -2,7 +2,7 @@
 import subprocess
 import os
 code_dir = "code"
-title = "Ohio State ACM-ICPC Team Notebook"
+title = "Ohio State ACM-ICPC Team Notebook: Sublinear Substring Seekers"
 
 def add_toc(html, sections):
     html2 = ''
