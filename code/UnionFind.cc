@@ -1,11 +1,20 @@
-#include <iostream>
-#include <vector>
-using namespace std;
-
-struct UnionFind {
-    vector<int> C;
-    // Initialize n disjoint sets with UnionFind(n)
-    UnionFind(int n) : C(n) { for (int i = 0; i < n; i++) C[i] = i; }
-    int find(int x) { return (C[x] == x) ? x : C[x] = find(C[x]); }
-    void merge(int x, int y) { C[find(x)] = find(y); } // Merge two sets
+/**
+ * Description: Disjoint-set data structure.
+ * Time: $O(alpha(N))$
+ */
+struct UF {
+    // E is parent set number if positive, and the size if negative.
+    // If negative, it's the root of a set.
+    vi e;
+    UF(int n) : e(n, -1) {}
+    bool sameSet(int a, int b) { return find(a) == find(b); }
+    int size(int x) { return -e[find(x)]; }
+    int find(int x) { return e[x] < 0 ? x : e[x] = find(e[x]); }
+    bool join(int a, int b) {
+        a = find(a), b = find(b);
+        if (a == b) return false;
+        if (e[a] > e[b]) swap(a, b);
+        e[a] += e[b]; e[b] = a;
+        return true;
+    }
 };
