@@ -32,11 +32,12 @@ MinCut.cc	Global min-cut
 #GraphCutInference.cc	Graph cut inference
 
 [Geometry]
-ConvexHull.cc	Convex hull
-Geometry.cc	Miscellaneous geometry
+#ConvexHull.cc	Convex hull
+#Geometry.cc	Miscellaneous geometry
+Geometry.py	Python geometry
 #JavaGeometry.java	Java geometry
 Geom3D.java	3D geometry
-#Delaunay.cc	Slow Delaunay triangulation
+Delaunay.cc	Slow Delaunay triangulation
 
 [Numerical algorithms]
 Euclid.cc	Number theory (modular, Chinese remainder, linear Diophantine)
