@@ -15,10 +15,11 @@ SuffixArray.cc	Suffix array
 #BIT.cc	Binary Indexed Tree
 UnionFind.cc	Union-find set
 KDTree.cc	KD-tree
-splay.cc	Splay tree
-SegmentTree.cpp	segment tree
+Splay.cc	Splay tree
+SegmentTree.cpp	Segment tree
 SegmentTreeLazy.cpp	Lazy segment tree
 LCA.cc	Lowest common ancestor
+LiChao.cpp	Li Chao Tree
 
 [Combinatorial optimization]
 #MaxFlow.cc	Dense max-flow
@@ -70,3 +71,5 @@ LatLong.cc	Latitude/longitude
 #RandomSTL.cc	Random STL stuff
 CSP.cc	Constraint satisfaction problems
 #FastExpo.cc	Fast exponentiation
+HilbertCurve.cpp	Hilbert curve for Mo's Algorithm
+
