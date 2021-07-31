@@ -18,7 +18,7 @@ KDTree.cc	KD-tree
 #Splay.cc	Splay tree
 SegmentTree.cpp	Segment tree
 SegmentTreeLazy.cpp	Lazy segment tree
-#LCA.cc	Lowest common ancestor
+LCA.cc	Lowest common ancestor
 LiChao.cpp	Li Chao Tree
 
 [Combinatorial optimization]
