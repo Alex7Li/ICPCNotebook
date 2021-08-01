@@ -13,7 +13,7 @@ UnorderedSetMap.cc	Unordered Set/Map
 OrderedSetMap.cc	Ordered Set/Map
 SuffixArray.cc	Suffix array
 #BIT.cc	Binary Indexed Tree
-UnionFind.cc	Union-find set
+UnionFind.cc	Disjoint Union Find (w/Rollback)
 KDTree.cc	KD-tree
 #Splay.cc	Splay tree
 SegmentTree.cpp	Segment tree

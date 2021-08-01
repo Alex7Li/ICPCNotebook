@@ -20,7 +20,7 @@
 <LI><A HREF="#file4">Unordered Set/Map</A></LI>
 <LI><A HREF="#file5">Ordered Set/Map</A></LI>
 <LI><A HREF="#file6">Suffix array</A></LI>
-<LI><A HREF="#file7">Union-find set</A></LI>
+<LI><A HREF="#file7">Disjoint Union Find (w/Rollback)</A></LI>
 <LI><A HREF="#file8">KD-tree</A></LI>
 <LI><A HREF="#file9">Segment tree</A></LI>
 <LI><A HREF="#file10">Lazy segment tree</A></LI>
@@ -409,12 +409,12 @@ using namespace std;
 <B><FONT COLOR="#228B22">struct</FONT></B> UF {
     <I><FONT COLOR="#B22222">// E is parent set number if positive, and the size if negative.
 </FONT></I>    <I><FONT COLOR="#B22222">// If negative, it's the root of a set.
-</FONT></I>    vi e;
+</FONT></I>    vi  e;
     UF(<B><FONT COLOR="#228B22">int</FONT></B> n) : e(n, -1) {}
     <B><FONT COLOR="#228B22">bool</FONT></B> sameSet(<B><FONT COLOR="#228B22">int</FONT></B> a, <B><FONT COLOR="#228B22">int</FONT></B> b) { <B><FONT COLOR="#A020F0">return</FONT></B> find(a) == find(b); }
     <B><FONT COLOR="#228B22">int</FONT></B> size(<B><FONT COLOR="#228B22">int</FONT></B> x) { <B><FONT COLOR="#A020F0">return</FONT></B> -e[find(x)]; }
     <B><FONT COLOR="#228B22">int</FONT></B> find(<B><FONT COLOR="#228B22">int</FONT></B> x) { <B><FONT COLOR="#A020F0">return</FONT></B> e[x] &lt; 0 ? x : e[x] = find(e[x]); }
-    <B><FONT COLOR="#228B22">int</FONT></B> find2(<B><FONT COLOR="#228B22">int</FONT></B> x) { <I><FONT COLOR="#B22222">// Dennis's faster union find
+    <B><FONT COLOR="#228B22">int</FONT></B> find2(<B><FONT COLOR="#228B22">int</FONT></B> x) {<I><FONT COLOR="#B22222">// Dennis claims this iterative find method is faster
 </FONT></I>        <B><FONT COLOR="#A020F0">while</FONT></B> (e[x] &gt;= 0) {e[x] = e[e[x]]; x = e[x]}
         <B><FONT COLOR="#A020F0">return</FONT></B> x;
     }
@@ -422,6 +422,25 @@ using namespace std;
         a = find(a), b = find(b);
         <B><FONT COLOR="#A020F0">if</FONT></B> (a == b) <B><FONT COLOR="#A020F0">return</FONT></B> false;
         <B><FONT COLOR="#A020F0">if</FONT></B> (e[a] &gt; e[b]) swap(a, b);
+        e[a] += e[b]; e[b] = a;
+        <B><FONT COLOR="#A020F0">return</FONT></B> true;
+    }
+    <I><FONT COLOR="#B22222">// Add these functions to support undoing the last few operations.
+</FONT></I>    <I><FONT COLOR="#B22222">// This can be used along with a seg tree over the time
+</FONT></I>    <I><FONT COLOR="#B22222">// axis to support arbitrary deletions for offline query problems.
+</FONT></I>    vector&lt;pii&gt; st;
+    <B><FONT COLOR="#228B22">int</FONT></B> time() { <B><FONT COLOR="#A020F0">return</FONT></B> sz(st); }
+    <B><FONT COLOR="#228B22">void</FONT></B> rollback(<B><FONT COLOR="#228B22">int</FONT></B> t) {
+        <B><FONT COLOR="#A020F0">for</FONT></B> (<B><FONT COLOR="#228B22">int</FONT></B> i = time(); i --&gt; t;)
+            e[st[i].first] = st[i].second;
+        st.resize(t);
+    }
+    <B><FONT COLOR="#228B22">bool</FONT></B> join(<B><FONT COLOR="#228B22">int</FONT></B> a, <B><FONT COLOR="#228B22">int</FONT></B> b) { <I><FONT COLOR="#B22222">// Replace the other join with this one for rollback
+</FONT></I>        a = find(a), b = find(b);
+        <B><FONT COLOR="#A020F0">if</FONT></B> (a == b) <B><FONT COLOR="#A020F0">return</FONT></B> false;
+        <B><FONT COLOR="#A020F0">if</FONT></B> (e[a] &gt; e[b]) swap(a, b);
+        st.push_back({a, e[a]});
+        st.push_back({b, e[b]});
         e[a] += e[b]; e[b] = a;
         <B><FONT COLOR="#A020F0">return</FONT></B> true;
     }
