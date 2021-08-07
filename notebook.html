@@ -409,34 +409,43 @@ using namespace std;
 <B><FONT COLOR="#228B22">struct</FONT></B> UF {
     <I><FONT COLOR="#B22222">// E is parent set number if positive, and the size if negative.
 </FONT></I>    <I><FONT COLOR="#B22222">// If negative, it's the root of a set.
-</FONT></I>    vi  e;
+</FONT></I>    vi e;
     UF(<B><FONT COLOR="#228B22">int</FONT></B> n) : e(n, -1) {}
     <B><FONT COLOR="#228B22">bool</FONT></B> sameSet(<B><FONT COLOR="#228B22">int</FONT></B> a, <B><FONT COLOR="#228B22">int</FONT></B> b) { <B><FONT COLOR="#A020F0">return</FONT></B> find(a) == find(b); }
     <B><FONT COLOR="#228B22">int</FONT></B> size(<B><FONT COLOR="#228B22">int</FONT></B> x) { <B><FONT COLOR="#A020F0">return</FONT></B> -e[find(x)]; }
     <B><FONT COLOR="#228B22">int</FONT></B> find(<B><FONT COLOR="#228B22">int</FONT></B> x) { <B><FONT COLOR="#A020F0">return</FONT></B> e[x] &lt; 0 ? x : e[x] = find(e[x]); }
     <B><FONT COLOR="#228B22">int</FONT></B> find2(<B><FONT COLOR="#228B22">int</FONT></B> x) {<I><FONT COLOR="#B22222">// Dennis claims this iterative find method is faster
-</FONT></I>        <B><FONT COLOR="#A020F0">while</FONT></B> (e[x] &gt;= 0) {e[x] = e[e[x]]; x = e[x]}
+</FONT></I>        <B><FONT COLOR="#A020F0">while</FONT></B> (e[x] &gt;= 0) {
+            e[x] = e[e[x]];
+            x = e[x]
+        }
         <B><FONT COLOR="#A020F0">return</FONT></B> x;
     }
     <B><FONT COLOR="#228B22">bool</FONT></B> join(<B><FONT COLOR="#228B22">int</FONT></B> a, <B><FONT COLOR="#228B22">int</FONT></B> b) {
         a = find(a), b = find(b);
         <B><FONT COLOR="#A020F0">if</FONT></B> (a == b) <B><FONT COLOR="#A020F0">return</FONT></B> false;
         <B><FONT COLOR="#A020F0">if</FONT></B> (e[a] &gt; e[b]) swap(a, b);
-        e[a] += e[b]; e[b] = a;
+        e[a] += e[b];
+        e[b] = a;
         <B><FONT COLOR="#A020F0">return</FONT></B> true;
     }
-    <I><FONT COLOR="#B22222">// Add these functions to support undoing the last few operations.
-</FONT></I>    <I><FONT COLOR="#B22222">// This can be used along with a seg tree over the time
-</FONT></I>    <I><FONT COLOR="#B22222">// axis to support arbitrary deletions for offline query problems.
-</FONT></I>    vector&lt;pii&gt; st;
+}
+<I><FONT COLOR="#B22222">// Support undoing the last few operations. O(log N) insertions.
+</FONT></I><I><FONT COLOR="#B22222">// This can be used along with a seg tree over the time
+</FONT></I><I><FONT COLOR="#B22222">// axis to support arbitrary deletions for offline query problems.
+</FONT></I><B><FONT COLOR="#228B22">struct</FONT></B> RollbackUF {
+    vi e; vector&lt;pii&gt; st;
+    RollbackUF(<B><FONT COLOR="#228B22">int</FONT></B> n) : e(n, -1) {}
+    <B><FONT COLOR="#228B22">int</FONT></B> size(<B><FONT COLOR="#228B22">int</FONT></B> x) { <B><FONT COLOR="#A020F0">return</FONT></B> -e[find(x)]; }
+    <B><FONT COLOR="#228B22">int</FONT></B> find(<B><FONT COLOR="#228B22">int</FONT></B> x) { <B><FONT COLOR="#A020F0">return</FONT></B> e[x] &lt; 0 ? x : find(e[x]); }
     <B><FONT COLOR="#228B22">int</FONT></B> time() { <B><FONT COLOR="#A020F0">return</FONT></B> sz(st); }
     <B><FONT COLOR="#228B22">void</FONT></B> rollback(<B><FONT COLOR="#228B22">int</FONT></B> t) {
         <B><FONT COLOR="#A020F0">for</FONT></B> (<B><FONT COLOR="#228B22">int</FONT></B> i = time(); i --&gt; t;)
             e[st[i].first] = st[i].second;
         st.resize(t);
     }
-    <B><FONT COLOR="#228B22">bool</FONT></B> join(<B><FONT COLOR="#228B22">int</FONT></B> a, <B><FONT COLOR="#228B22">int</FONT></B> b) { <I><FONT COLOR="#B22222">// Replace the other join with this one for rollback
-</FONT></I>        a = find(a), b = find(b);
+    <B><FONT COLOR="#228B22">bool</FONT></B> join(<B><FONT COLOR="#228B22">int</FONT></B> a, <B><FONT COLOR="#228B22">int</FONT></B> b) {
+        a = find(a), b = find(b);
         <B><FONT COLOR="#A020F0">if</FONT></B> (a == b) <B><FONT COLOR="#A020F0">return</FONT></B> false;
         <B><FONT COLOR="#A020F0">if</FONT></B> (e[a] &gt; e[b]) swap(a, b);
         st.push_back({a, e[a]});
@@ -1249,6 +1258,7 @@ using namespace std;
 
 <B><FONT COLOR="#228B22">typedef</FONT></B> vector&lt;<B><FONT COLOR="#228B22">int</FONT></B>&gt; VI;
 <B><FONT COLOR="#228B22">typedef</FONT></B> vector&lt;VI&gt; VVI;
+
 <B><FONT COLOR="#228B22">bool</FONT></B> <B><FONT COLOR="#0000FF">FindMatch</FONT></B>(<B><FONT COLOR="#228B22">int</FONT></B> i, <B><FONT COLOR="#228B22">const</FONT></B> VVI &amp;w, VI &amp;mr, VI &amp;mc, VI &amp;seen) {
     <B><FONT COLOR="#A020F0">for</FONT></B> (<B><FONT COLOR="#228B22">int</FONT></B> j = 0; j &lt; w[i].size(); j++) {
         <B><FONT COLOR="#A020F0">if</FONT></B> (w[i][j] &amp;&amp; !seen[j]) {
@@ -1262,14 +1272,26 @@ using namespace std;
     }
     <B><FONT COLOR="#A020F0">return</FONT></B> false;
 }
+
 <B><FONT COLOR="#228B22">int</FONT></B> <B><FONT COLOR="#0000FF">BipartiteMatching</FONT></B>(<B><FONT COLOR="#228B22">const</FONT></B> VVI &amp;w, VI &amp;mr, VI &amp;mc) {
     mr = VI(w.size(), -1);
     mc = VI(w[0].size(), -1);
-
     <B><FONT COLOR="#228B22">int</FONT></B> ct = 0;
-    <B><FONT COLOR="#A020F0">for</FONT></B> (<B><FONT COLOR="#228B22">int</FONT></B> i = 0; i &lt; w.size(); i++) {
+    <I><FONT COLOR="#B22222">// OPTIONAL SECTION: Find a greedy matching (improves performance by a big constant)
+</FONT></I>    <B><FONT COLOR="#A020F0">for</FONT></B> (<B><FONT COLOR="#228B22">int</FONT></B> i = 0; i &lt; w.size(); ++i) {
+        <B><FONT COLOR="#A020F0">for</FONT></B> (<B><FONT COLOR="#228B22">int</FONT></B> j = 0; j &lt; w[0].size(); ++j) {
+            <B><FONT COLOR="#A020F0">if</FONT></B> (w[i][j] &amp;&amp; mc[j] == -1) {
+                mc[j] = i;
+                mr[i] = j;
+                ct++;
+                <B><FONT COLOR="#A020F0">break</FONT></B>;
+            }
+        }
+    }
+    <I><FONT COLOR="#B22222">// END OPTIONAL SECTION
+</FONT></I>    <B><FONT COLOR="#A020F0">for</FONT></B> (<B><FONT COLOR="#228B22">int</FONT></B> i = 0; i &lt; w.size(); i++) {
         VI seen(w[0].size());
-        <B><FONT COLOR="#A020F0">if</FONT></B> (FindMatch(i, w, mr, mc, seen)) ct++;
+        <B><FONT COLOR="#A020F0">if</FONT></B> (mr[i] == -1 &amp;&amp; FindMatch(i, w, mr, mc, seen)) ct++;
     }
     <B><FONT COLOR="#A020F0">return</FONT></B> ct;
 }

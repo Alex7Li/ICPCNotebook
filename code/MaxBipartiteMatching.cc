@@ -13,6 +13,7 @@ using namespace std;
 
 typedef vector<int> VI;
 typedef vector<VI> VVI;
+
 bool FindMatch(int i, const VVI &w, VI &mr, VI &mc, VI &seen) {
     for (int j = 0; j < w[i].size(); j++) {
         if (w[i][j] && !seen[j]) {
@@ -26,14 +27,26 @@ bool FindMatch(int i, const VVI &w, VI &mr, VI &mc, VI &seen) {
     }
     return false;
 }
+
 int BipartiteMatching(const VVI &w, VI &mr, VI &mc) {
     mr = VI(w.size(), -1);
     mc = VI(w[0].size(), -1);
-
     int ct = 0;
+    // OPTIONAL SECTION: Find a greedy matching (improves performance by a big constant)
+    for (int i = 0; i < w.size(); ++i) {
+        for (int j = 0; j < w[0].size(); ++j) {
+            if (w[i][j] && mc[j] == -1) {
+                mc[j] = i;
+                mr[i] = j;
+                ct++;
+                break;
+            }
+        }
+    }
+    // END OPTIONAL SECTION
     for (int i = 0; i < w.size(); i++) {
         VI seen(w[0].size());
-        if (FindMatch(i, w, mr, mc, seen)) ct++;
+        if (mr[i] == -1 && FindMatch(i, w, mr, mc, seen)) ct++;
     }
     return ct;
 }
