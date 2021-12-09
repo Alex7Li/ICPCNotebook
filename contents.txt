@@ -58,6 +58,7 @@ SCC.cc	Strongly connected components
 EulerianPath.cc	Eulerian path
 #Kruskal.cc	Kruskal's algorithm
 Prim.cc	Minimum spanning trees
+2Sat.cpp	2Sat
 
 [Strings]
 AhoCorasick.cpp	AhoCorasick
