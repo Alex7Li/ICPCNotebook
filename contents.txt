@@ -62,11 +62,13 @@ Prim.cc	Minimum spanning trees
 
 [Strings]
 AhoCorasick.cpp	AhoCorasick
-LongestIncreasingSubsequence.cc	Longest increasing subsequence
-LCS.cc	Longest common subsequence
+#LongestIncreasingSubsequence.cc	Longest increasing subsequence
+#LCS.cc	Longest common subsequence 
 KMP.cc	Knuth-Morris-Pratt
 Zfunc.cpp	Longest Common Prefix
-Manacher.cpp	Palindromes
+StringHash.cpp String Hashing
+Manacher.cpp	Manacher
+PalindromeTree.cpp Palindrome Tree
 
 [Miscellaneous]
 Primes.cc	Prime numbers

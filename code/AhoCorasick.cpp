@@ -1,89 +1,79 @@
-#define foreach(x, v) for (typeof (v).begin() x=(v).begin(); x !=(v).end(); ++x)
-#define For(i, a, b) for (int i=(a); i<(b); ++i)
-#define D(x) cout << #x " is " << x << endl
-const int MAXS = 6 * 50 + 10; // Max number of states in the matching machine.
-// Should be equal to the sum of the length of all keywords.
-const int MAXC = 26; // Number of characters in the alphabet.
-int out[MAXS]; // Output for each state, as a bitwise mask.
-int f[MAXS]; // Failure function
-int g[MAXS][MAXC]; // Goto function, or -1 if fail.
-int buildMatchingMachine(const vector <string> &words, char lowestChar = 'a',
-                         char highestChar = 'z') {
-    memset(out, 0, sizeof out);
-    memset(f, -1, sizeof f);
-    memset(g, -1, sizeof g);
-    int states = 1; // Initially, we just have the 0 state
-    for (int i = 0; i < words.size(); ++i) {
-        const string &keyword = words[i];
-        int currentState = 0;
-        for (int j = 0; j < keyword.size(); ++j) {
-            int c = keyword[j] - lowestChar;
-            if (g[currentState][c] == -1) { // Allocate a new node
-                g[currentState][c] = states++;
-            }
-            currentState = g[currentState][c];
-        }
-        out[currentState] |= (1 << i); // There's a match of keywords[i] at node currentState.
-    }
-    // State 0 should have an outgoing edge for all characters.
-    for (int c = 0; c < MAXC; ++c) {
-        if (g[0][c] == -1) {
-            g[0][c] = 0;
-        }
-    }
+/**
+ * Description: Aho-Corasick automaton, used for multiple pattern matching.
+ * Initialize with AhoCorasick ac(patterns); the automaton start node will be at index 0.
+ * find(word) returns for each position the index of the longest word that ends there, or -1 if none.
+ * findAll($-$, word) finds all words (up to $N \sqrt N$ many if no duplicate patterns)
+ * that start at each position (shortest first).
+ * Duplicate patterns are allowed; empty patterns are not.
+ * To find the longest words that start at each position, reverse all input.
+ * For large alphabets, split each symbol into chunks, with sentinel bits for symbol boundaries.
+ * Time: construction takes $O(26N)$, where $N =$ sum of length of patterns.
+ * find(x) is $O(N)$, where N = length of x. findAll is $O(NM)$.
+ * Status: stress-tested
+ */
+struct AhoCorasick {
+	enum {alpha = 26, first = 'A'}; // change this!
+	struct Node {
+		// (nmatches is optional)
+		int back, next[alpha], start = -1, end = -1, nmatches = 0;
+		Node(int v) { memset(next, v, sizeof(next)); }
+	};
+	vector<Node> N;
+	vi backp;
+	void insert(string& s, int j) {
+		assert(!s.empty());
+		int n = 0;
+		for (char c : s) {
+			int& m = N[n].next[c - first];
+			if (m == -1) { n = m = sz(N); N.emplace_back(-1); }
+			else n = m;
+		}
+		if (N[n].end == -1) N[n].start = j;
+		backp.push_back(N[n].end);
+		N[n].end = j;
+		N[n].nmatches++;
+	}
+	AhoCorasick(vector<string>& pat) : N(1, -1) {
+		rep(i,0,sz(pat)) insert(pat[i], i);
+		N[0].back = sz(N);
+		N.emplace_back(0);
 
-    // Now, let's build the failure function
-    queue<int> q;
-    for (int c = 0; c <= highestChar - lowestChar; ++c) { // Iterate over every possible input
-        // All nodes s of depth 1 have f[s] = 0
-        if (g[0][c] != -1 and g[0][c] != 0) {
-            f[g[0][c]] = 0;
-            q.push(g[0][c]);
-        }
-    }
-    while (q.size()) {
-        int state = q.front();
-        q.pop();
-        for (int c = 0; c <= highestChar - lowestChar; ++c) {
-            if (g[state][c] != -1) {
-                int failure = f[state];
-                while (g[failure][c] == -1) {
-                    failure = f[failure];
-                }
-                failure = g[failure][c];
-                f[g[state][c]] = failure;
-                out[g[state][c]] |= out[failure]; // Merge out values
-                q.push(g[state][c]);
-            }
-        }
-    }
-
-    return states;
-}
-int findNextState(int currentState, char nextInput, char lowestChar = 'a') {
-    int answer = currentState;
-    int c = nextInput - lowestChar;
-    while (g[answer][c] == -1)
-        answer = f[answer];
-    return g[answer][c];
-}
-int main() {
-    vector <string> keywords;
-    keywords.push_back("he"); keywords.push_back("she");
-    keywords.push_back("hers"); keywords.push_back("his");
-    string text = "ahishers";
-    buildMatchingMachine(keywords, 'a', 'z');
-    int currentState = 0;
-    for (int i = 0; i < text.size(); ++i) {
-        currentState = findNextState(currentState, text[i], 'a');
-        if (out[currentState] == 0)
-            continue; // Nothing new, let's move on to the next character.
-        for (int j = 0; j < keywords.size(); ++j) {
-            if (out[currentState] & (1 << j)) { // Matched keywords[j]
-                cout << "Keyword " << keywords[j] << " appears from "
-                     << i - keywords[j].size() + 1 << " to " << i << endl;
-            }
-        }
-    }
-    return 0;
-}
+		queue<int> q;
+		for (q.push(0); !q.empty(); q.pop()) {
+			int n = q.front(), prev = N[n].back;
+			rep(i,0,alpha) {
+				int &ed = N[n].next[i], y = N[prev].next[i];
+				if (ed == -1) ed = y;
+				else {
+					N[ed].back = y;
+					(N[ed].end == -1 ? N[ed].end : backp[N[ed].start])
+						= N[y].end;
+					N[ed].nmatches += N[y].nmatches;
+					q.push(ed);
+				}
+			}
+		}
+	}
+	vi find(string word) {
+		int n = 0;
+		vi res; // ll count = 0;
+		for (char c : word) {
+			n = N[n].next[c - first];
+			res.push_back(N[n].end);
+			// count += N[n].nmatches;
+		}
+		return res;
+	}
+	vector<vi> findAll(vector<string>& pat, string word) {
+		vi r = find(word);
+		vector<vi> res(sz(word));
+		rep(i,0,sz(word)) {
+			int ind = r[i];
+			while (ind != -1) {
+				res[i - sz(pat[ind]) + 1].push_back(ind);
+				ind = backp[ind];
+			}
+		}
+		return res;
+	}
+};
