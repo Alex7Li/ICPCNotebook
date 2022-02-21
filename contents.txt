@@ -32,11 +32,8 @@ MinCut.cc	Global min-cut
 #GraphCutInference.cc	Graph cut inference
 
 [Geometry]
-#ConvexHull.cc	Convex hull
-#Geometry.cc	Miscellaneous geometry
-Geometry.py	Python geometry
-#JavaGeometry.java	Java geometry
-Geom3D.java	3D geometry
+LineContainer.cpp	Convex Hull
+Geometry.cpp	Geometry
 Delaunay.cc	Slow Delaunay triangulation
 
 [Numerical algorithms]
@@ -66,9 +63,9 @@ AhoCorasick.cpp	AhoCorasick
 #LCS.cc	Longest common subsequence 
 KMP.cc	Knuth-Morris-Pratt
 Zfunc.cpp	Longest Common Prefix
-StringHash.cpp String Hashing
+StringHash.cpp	String Hashing
 Manacher.cpp	Manacher
-PalindromeTree.cpp Palindrome Tree
+#PalindromeTree.cpp	Palindrome Tree
 
 [Miscellaneous]
 Primes.cc	Prime numbers
